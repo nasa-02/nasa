@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="mn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Профайл</title>
+<style>
+:root{--bl:#0a5cf5;--sh:#eef2f8;--line:#e3e8ef;--mut:#7a869a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:linear-gradient(#dcecfd,#f0f3f8 45%);background-attachment:fixed;color:#1b2333;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{max-width:480px;margin:0 auto;padding:6px 16px 120px}
+.card{background:#fff;border-radius:20px;padding:10px 16px;margin-bottom:16px}
+.card:first-child{padding:8px 14px;margin-bottom:6px;border-radius:18px}
+.prof{display:flex;align-items:center;gap:12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.av{width:44px;height:44px;border-radius:50%;background:#e8edf5 center/cover;flex:none;display:grid;place-items:center;cursor:pointer}.av.set svg{display:none}
+.nm{color:var(--bl);font-weight:400;font-size:17px}.em{font-size:13px}
+.chev{margin-left:auto;color:#6b7686;flex:none}
+.svc{display:flex;align-items:center;justify-content:space-between;padding-top:6px;font-size:13px;gap:10px}
+.svc b{color:var(--bl)}
+.dd svg{width:16px;height:16px}
+.dd{width:26px;height:26px;border-radius:50%;background:#f0f4fb;display:grid;place-items:center;flex:none}
+.hd{display:flex;justify-content:space-between;align-items:center;margin:8px 0 8px}
+.hd h2{margin:0;font-size:16px;font-weight:400;white-space:nowrap}
+.pill{background:#fff;border:0;color:#1b2333;font-weight:600;font-size:13px;font-family:inherit;padding:7px 14px;border-radius:16px;white-space:nowrap}
+.stage{position:relative;overflow:hidden;height:calc((min(100vw,480px) - 32px) * .84 / 1.586 + 4px);touch-action:pan-y;user-select:none}
+.slide{position:absolute;top:0;left:50%;width:84%;aspect-ratio:1.586;border-radius:18px;background:#fff center/cover no-repeat;display:grid;place-items:center;text-align:center;padding:20px;color:var(--mut);font-size:14px;border:2px dashed #cdd6e4;transition:transform .35s ease,opacity .35s}
+.slide.has{border:0}
+.all{display:block;margin:10px auto 16px;background:#fff;color:var(--bl);font-weight:700;font-size:12px;font-family:inherit;border:0;padding:8px 18px;border-radius:14px}
+.row{display:flex;align-items:center;gap:12px;padding:8px 0;font-weight:600;font-size:15px}
+.row .chev{width:11px;height:18px}
+#m1,#m2,#m3,#m4{margin-left:10px;margin-right:10px}.ic svg{width:22px;height:22px}
+.ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0 calc(10px + env(safe-area-inset-bottom,0px));max-width:480px;margin:0 auto;font-size:13px;color:#6b7686;border-top:1px solid #edf0f5}
+nav div{text-align:center;width:20%}nav svg{display:block;margin:0 auto 6px}
+nav .on{color:var(--bl);font-weight:600}
+.fab{position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:84px;height:84px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 -4px 14px #0001}
+.fab i{width:66px;height:66px;border-radius:50%;background:linear-gradient(#4b8ff8,#0a5cf5);display:grid;place-items:center;box-shadow:0 8px 20px #0a5cf566}
+.ov{position:fixed;inset:0;background:#0007;opacity:0;pointer-events:none;transition:.25s;z-index:10}
+.ov.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;background:#fff;border-radius:28px 28px 0 0;padding:12px 16px calc(24px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:.3s;z-index:11}
+.sheet.on{transform:none}
+.grab{width:70px;height:5px;background:#dbe0e8;border-radius:3px;margin:0 auto 12px}
+.stitle{margin:0 -16px;text-align:center;font-weight:500;font-size:14px;color:#3b4252;padding:2px 0 12px;border-bottom:2px solid #dfe5ee}
+.flip{perspective:1000px;margin:22px 8px 22px}
+.fi{position:relative;aspect-ratio:1.586;transition:transform .6s;transform-style:preserve-3d}
+.fi.f{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;background:transparent;overflow:hidden;display:grid;place-items:center;color:var(--mut);font-size:14px;text-align:center;padding:16px}
+.face img{width:100%;height:100%;object-fit:fill;display:block}
+.face:not(.bk) img{transform:scale(1.08)}
+.face.bk{transform:rotateY(180deg)}
+.hint{text-align:center;color:var(--mut);font-size:12px;margin:0 0 8px}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:13px;font-weight:700;font-size:17px;font-family:inherit;margin-top:8px}
+.p{background:var(--bl);color:#fff}.s{background:#dce8fd;color:var(--bl)}
+.edit{position:fixed;inset:0;background:#f0f3f8;z-index:20;overflow:auto;transform:translateY(100%);transition:.3s;visibility:hidden}
+.edit.on{transform:none;visibility:visible}
+.eh{position:sticky;top:0;background:#fff;display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;font-size:18px;max-width:480px;margin:0 auto}
+.bk{border:0;background:none;font-size:32px;line-height:1;color:var(--bl);padding:0 8px}
+.eb{max-width:480px;margin:0 auto;padding:16px 16px 40px}
+.eav{width:96px;height:96px;border-radius:50%;background:#dfe6f1 center/cover;margin:4px auto 8px;display:grid;place-items:center;font-size:30px;color:#7a869a}
+.eb label{display:block;font-size:13px;color:var(--mut);margin:14px 0 6px}
+.eb input{width:100%;padding:14px;border-radius:14px;border:1px solid var(--line);font-size:17px;font-family:inherit;background:#fff;color:#1b2333}
+.dr{background:#fff;border-radius:16px;padding:12px;margin-bottom:10px}
+.dh{display:flex;justify-content:space-between;align-items:center;font-weight:600;margin-bottom:8px}
+.dh button{border:0;background:#fde3e3;color:#e8342f;border-radius:10px;padding:6px 12px;font-family:inherit}
+.tin{margin-bottom:10px}
+.sl{display:flex;gap:10px}.slot{flex:1;aspect-ratio:1.586;border-radius:12px;background:#eef2f8 center/cover;border:2px dashed #cdd6e4;display:grid;place-items:center;font-size:13px;color:var(--mut);text-align:center;cursor:pointer}
+.slot.has{border:0}
+.add{width:100%;border:2px dashed #b7c6de;background:none;color:var(--bl);border-radius:14px;padding:14px;font-weight:600;font-size:16px;font-family:inherit}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<linearGradient id="o" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffab6b"/><stop offset="1" stop-color="#f26a2a"/></linearGradient>
+<linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3ec6f4"/><stop offset="1" stop-color="#1287e6"/></linearGradient>
+<linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#37d0c8"/><stop offset="1" stop-color="#1a8fe0"/></linearGradient>
+<linearGradient id="r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a7a"/><stop offset="1" stop-color="#e83a3a"/></linearGradient>
+</defs></svg>
+<div class="app">
+  <div class="card">
+    <div class="prof"><div class="av" id="av" title="Зураг оруулах"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#7a869a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h2.500l1.500-2h8l1.500 2H21a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="13" cy="14" r="4"/></svg></div>
+      <div><div class="nm" id="nm">Овог.Нэр</div><div class="em" id="em">000000000000@e-mongolia.mn</div></div>
+      <svg class="chev" width="14" height="22" viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 2l9 9-9 9"/></svg></div>
+    <div class="svc"><span>Та нийт <b>0</b> үйлчилгээ авч дараах хэмнэлтийг хийсэн байна.</span>
+      <span class="dd"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#0a5cf5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l8 7 8-7M5 13l8 7 8-7"/></svg></span></div>
+  </div>
+
+  <div class="hd"><h2>Миний бичиг баримтууд</h2><button class="pill" id="ref">Шинэчлэх</button></div>
+  <input type="file" id="file" accept="image/*" hidden>
+  <div class="stage" id="stage"></div>
+  <button class="all">Бүх бичиг баримтыг харах</button>
+
+  <div class="card" id="m1"></div>
+  <div class="card" id="m2"></div>
+  <div class="card" id="m3"></div>
+  <div class="card" id="m4"></div>
+</div>
+
+<nav>
+  <div><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#6b7686" stroke-width="2.2" stroke-linejoin="round"><path d="M6 15c0-2 1-3 2.500-4l6-4.500c1.500-1 3.500-1 5 0l6 4.500c1.500 1 2.500 2 2.500 4v9a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"/><path d="M17 19v5" stroke-linecap="round"/></svg>Нүүр</div>
+  <div><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#6b7686" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h11l6 6v15a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M11 17h9M11 22h6"/></svg>Үйлчилгээ</div>
+  <div></div>
+  <div><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#6b7686" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="18" height="5" rx="2"/><path d="M6 14h22l-2.500 13a3 3 0 0 1-3 2.500H11.500a3 3 0 0 1-3-2.500z"/><path d="M11 10v4M23 10v4"/></svg>Нэмэлт</div>
+  <div class="on"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#0a5cf5" stroke-width="2.4"><circle cx="17" cy="17" r="13"/><circle cx="17" cy="14" r="4.500" fill="#0a5cf5"/><path d="M8.500 26c1.500-4 5-5.500 8.500-5.500s7 1.500 8.500 5.500" fill="#0a5cf5"/></svg>Профайл</div>
+  <span class="fab"><i><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.600" stroke-linecap="round"><path d="M6 12V9a3 3 0 0 1 3-3h3M22 6h3a3 3 0 0 1 3 3v3M28 22v3a3 3 0 0 1-3 3h-3M12 28H9a3 3 0 0 1-3-3v-3"/><rect x="11" y="11" width="5" height="5" rx="1.500"/><rect x="18" y="11" width="5" height="5" rx="1.500"/><rect x="11" y="18" width="5" height="5" rx="1.500"/><path d="M19 21h1M22 21h1M19 24h4" stroke-width="2.200"/></svg></i></span>
+</nav>
+
+<div class="edit" id="edit">
+  <div class="eh"><button class="bk" id="ebk">‹</button><b>Мэдээлэл засах</b></div>
+  <div class="eb">
+    <div class="eav" id="eav"></div><div class="hint">Профайл зураг солих</div>
+    <label>Овог</label><input id="iov" placeholder="Овог">
+    <label>Нэр</label><input id="ine" placeholder="Нэр">
+    <label>Регистр / бүртгэлийн дугаар (имэйл)</label><input id="inu" inputmode="numeric" maxlength="12" placeholder="000000000000">
+    <label>Бичиг баримтууд</label><div id="dl"></div>
+    <button class="add" id="addc">+ Бичиг баримт нэмэх</button>
+    <button class="btn p" id="save">Хадгалах</button>
+  </div>
+</div>
+<div class="ov" id="ov"></div>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <div class="stitle" id="stitle"></div>
+  <div class="flip"><div class="fi" id="fi"><div class="face" id="ff"></div><div class="face bk" id="fb"></div></div></div>
+    <button class="btn p">Лавлагаа авах</button>
+  <button class="btn s">Дахин захиалах</button>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const chev='<svg class="chev" width="14" height="22" viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 2l9 9-9 9"/></svg>';
+const W='#fff';
+// doc base: page with folded corner
+const page=(f,extra)=>`<svg width="30" height="30" viewBox="0 0 30 30"><path d="M8 3h9l7 7v14a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z" fill="${f}"/><path d="M17 3l7 7h-5a2 2 0 0 1-2-2z" fill="#0003"/><path d="M9 14h9M9 18h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>${extra}</svg>`;
+const I={
+ folder:['#fde3d6',`<svg width="32" height="32" viewBox="0 0 32 32"><path d="M3 9a3 3 0 0 1 3-3h7l3 3h10a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" fill="url(#o)"/><circle cx="16" cy="15" r="3" fill="#fff"/><path d="M10.500 24c.5-3 3-4.500 5.500-4.500s5 1.500 5.500 4.500z" fill="#fff"/></svg>`],
+ wallet:['#dff3f7',`<svg width="34" height="30" viewBox="0 0 34 30"><rect x="2" y="4" width="30" height="22" rx="7" fill="#26325f"/><rect x="2" y="9" width="30" height="17" rx="7" fill="url(#b)"/><circle cx="26" cy="17.500" r="2" fill="#fff"/></svg>`],
+ hist:['#e3f0f7',page('#eef3f8',`<circle cx="22" cy="23" r="6" fill="#1a9be8"/><path d="M22 20v6M19.500 24l2.500 2.500 2.500-2.500" stroke="#fff" stroke-width="1.800" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`).replace('<path d="M9 14h9M9 18h6" stroke="#fff"','<path d="M9 14h9M9 18h6" stroke="#7d8da3"')],
+ mail:['#fde3d6',`<svg width="32" height="32" viewBox="0 0 32 32"><path d="M3 15l6-8h14l6 8v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" fill="url(#o)"/><rect x="9" y="4" width="14" height="13" rx="3" fill="#fff"/><path d="M12 9h8M12 13h5" stroke="#c9713f" stroke-width="2" stroke-linecap="round"/></svg>`],
+ thanks:['#ece9fb',`<svg width="32" height="32" viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="19" rx="6" fill="#6b4df0"/><rect x="7" y="9" width="18" height="11" rx="3" fill="#fff"/><path d="M10 13h9M10 17h6" stroke="#6b4df0" stroke-width="2" stroke-linecap="round"/><circle cx="23" cy="24" r="4" fill="#ff8a4c"/></svg>`],
+ poll:['#d9f5f5',page('url(#g)',`<circle cx="22" cy="23" r="6" fill="#39c85a"/><path d="M19 23l2.200 2.200L25 21" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`)],
+ clock:['#dff0f7',page('url(#b)',`<circle cx="22" cy="23" r="6" fill="#ff7a3c"/><path d="M22 20v3.500h2.500" stroke="#fff" stroke-width="1.800" fill="none" stroke-linecap="round"/>`)],
+ risk:['#e3eef5',page('#eef3f8',`<circle cx="22" cy="23" r="6" fill="#e8342f"/><path d="M22 20v4M22 25.500v.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`).replace('<path d="M9 14h9M9 18h6" stroke="#fff"','<path d="M9 14h9M9 18h6" stroke="#7d8da3"')],
+ shield:['#d9f5f8',`<svg width="30" height="32" viewBox="0 0 30 32"><path d="M15 2l11 4v9c0 7-5 12-11 15C9 27 4 22 4 15V6z" fill="url(#b)"/><path d="M10 16l4 4 7-8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`],
+ out:['#fbe5e5',`<svg width="34" height="32" viewBox="0 0 34 32"><path d="M4 10a6 6 0 0 1 6-6h6v24h-6a6 6 0 0 1-6-6z" fill="url(#r)"/><path d="M18 16h12M25 10l6 6-6 6" stroke="#333" stroke-width="2.200" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`]
+};
+const row=(k,t,c=true)=>`<div class="row"><span class="ic" style="background:${I[k][0]}">${I[k][1]}</span><span>${t}</span>${c?chev:''}</div>`;
+$('m1').innerHTML=row('folder','Төрд байгаа миний мэдээлэл')+row('wallet','Цахим хэтэвч');
+$('m2').innerHTML=row('hist','Үйлчилгээний түүх');
+$('m3').innerHTML=row('mail','Үндэсний шуудан')+row('thanks','Талархал')+row('poll','Санал асуулга')+row('clock','Өргөдөл, гомдол')+row('risk','Эрсдэлийн түүх')+row('shield','Баталгаажуулалт');
+$('m4').innerHTML=row('out','Системээс гарах',false);
+
+// ---- data + looping carousel ----
+const docs=[];let cur=null,idx=0,target=null;
+const P={ov:'Овог',ne:'Нэр',num:'000000000000',av:null};
+const url=f=>URL.createObjectURL(f);
+const choose=cb=>{target=cb;$('file').click()};
+const scale=f=>new Promise(r=>{const u=URL.createObjectURL(f),im=new Image();
+  im.onload=()=>{const k=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement('canvas');
+    c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext('2d');x.drawImage(im,0,0,c.width,c.height);
+    try{const W=c.width,H=c.height,D=x.getImageData(0,0,W,H).data;let x0=W,y0=H,x1=0,y1=0;const bR=D[0],bG=D[1],bB=D[2],bA=D[3];
+      for(let y=0;y<H;y++)for(let q=0;q<W;q++){const i=(y*W+q)*4;
+        if(Math.abs(D[i+3]-bA)>20||(D[i+3]>20&&(Math.abs(D[i]-bR)>14||Math.abs(D[i+1]-bG)>14||Math.abs(D[i+2]-bB)>14))){if(q<x0)x0=q;if(q>x1)x1=q;if(y<y0)y0=y;if(y>y1)y1=y}}
+      const w=x1-x0+1,h=y1-y0+1;
+      if(w>W*.4&&h>H*.4&&(w<W||h<H)){const t=document.createElement('canvas');t.width=w;t.height=h;
+        const g=t.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,w,h);g.drawImage(c,x0,y0,w,h,0,0,w,h);return r(t.toDataURL('image/jpeg',.92))}
+    }catch(_){}
+    r(c.toDataURL('image/jpeg',.92))};im.onerror=()=>r(u);im.src=u});
+$('file').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(f&&target){const cb=target;cb(await scale(f))}target=null};
+const shown=()=>docs.map((d,i)=>({d,i})).filter(x=>x.d.front);
+const slidesList=()=>{const a=shown().map(x=>({doc:x.i}));if(!a.length)return[{ph:true},{ph:true},{ph:true}];const b=[...a];while(a.length<3)a.push(...b);return a};
+function paintProfile(){
+  $('nm').textContent=`${P.ov}.${P.ne}`;$('em').textContent=`${P.num}@e-mongolia.mn`;
+  $('av').style.backgroundImage=P.av?`url(${P.av})`:'';$('av').classList.toggle('set',!!P.av);
+  $('eav').style.backgroundImage=P.av?`url(${P.av})`:'';$('eav').textContent=P.av?'':'📷';
+}
+$('av').onclick=()=>choose(u=>{P.av=u;paintProfile()});
+$('eav').onclick=$('av').onclick;
+$('ref').onclick=()=>{$('iov').value=P.ov;$('ine').value=P.ne;$('inu').value=P.num;paintProfile();renderEditor();$('edit').classList.add('on')};
+$('inu').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'');
+function closeEdit(){
+  P.ov=$('iov').value.trim()||'Овог';P.ne=$('ine').value.trim()||'Нэр';P.num=$('inu').value||'000000000000';
+  paintProfile();build();idx=0;layout(0,true);$('edit').classList.remove('on');
+}
+$('save').onclick=closeEdit;$('ebk').onclick=closeEdit;
+$('addc').onclick=()=>{docs.push({front:null,back:null});renderEditor()};
+function renderEditor(){
+  const l=$('dl');l.innerHTML='';
+  docs.forEach((d,i)=>{
+    const r=document.createElement('div');r.className='dr';
+    r.innerHTML=`<div class="dh"><span>Бичиг баримт ${i+1}</span><button>Устгах</button></div><input class="tin" placeholder="Гарчиг"><div class="sl"></div>`;
+    const ti=r.querySelector('.tin');ti.value=d.title||defT(i);ti.oninput=()=>d.title=ti.value;
+    r.querySelector('button').onclick=()=>{docs.splice(i,1);renderEditor()};
+    [['front','Нүүр тал'],['back','Ар тал']].forEach(([k,t])=>{
+      const b=document.createElement('div');b.className='slot'+(d[k]?' has':'');
+      if(d[k])b.style.backgroundImage=`url(${d[k]})`;else b.textContent='+ '+t;
+      b.onclick=()=>choose(u=>{d[k]=u;renderEditor()});
+      r.querySelector('.sl').appendChild(b);
+    });
+    l.appendChild(r);
+  });
+}
+let els=[],prev=[];
+function build(){
+  const st=$('stage');st.innerHTML='';const L=slidesList();
+  els=L.map(s=>{const e=document.createElement('div');e.className='slide';
+    if(s.ph)e.textContent='Шинэчлэх товчийг дарж бичиг баримтаа оруулна уу';
+    else{e.classList.add('has');e.style.backgroundImage=`url(${docs[s.doc].front})`}
+    st.appendChild(e);return e});
+  prev=els.map(()=>null);layout(0,true);
+}
+function layout(dx,instant){
+  const n=els.length,w=$('stage').clientWidth*.84,step=w*.80;
+  els.forEach((e,k)=>{
+    let d=((k-idx)%n+n)%n;if(d>n/2)d-=n;
+    const jump=prev[k]!==null&&Math.abs(d-prev[k])>1.5;
+    e.style.transition=(instant||jump||dx)?'none':'';
+    const pos=Math.min(1,Math.abs(d+dx/step));
+    e.style.transform=`translateX(calc(-50% + ${d*step+dx}px)) scale(${1-.18*pos})`;
+    e.style.zIndex=10-Math.round(pos*5);
+    e.style.opacity=Math.abs(d)>1?0:1-.45*pos;
+    prev[k]=d;
+  });
+}
+const st=$('stage');let x0=null,moved=0,dx=0;
+st.onpointerdown=e=>{x0=e.clientX;moved=0;dx=0;st.setPointerCapture(e.pointerId)};
+st.onpointermove=e=>{if(x0===null)return;dx=els.length<2?0:e.clientX-x0;moved=Math.max(moved,Math.abs(dx));layout(dx)};
+st.onpointerup=e=>{
+  if(x0===null)return;x0=null;
+  if(els.length<2&&moved>=6){layout(0);return}
+  const t=st.clientWidth*.15;
+  if(moved<6){tap();layout(0);return}
+  if(dx<-t)idx=(idx+1)%els.length;else if(dx>t)idx=(idx-1+els.length)%els.length;
+  dx=0;layout(0);
+};
+st.onpointercancel=()=>{x0=null;layout(0)};
+function tap(){const s=slidesList()[idx];if(s.ph)return;openSheet(s.doc)}
+addEventListener('resize',()=>layout(0,true));
+build();paintProfile();
+
+// ---- sheet ----
+function paintSheet(){
+  const d=docs[cur];
+    $('ff').innerHTML=`<img src="${d.front}" alt="">`;
+  $('fb').innerHTML=d.back?`<img src="${d.back}" alt="">`:'Ар талын зураг оруулаагүй байна.';
+}
+const defT=i=>i===0?'Иргэний үнэмлэх':i===1?'Жолооны үнэмлэх':'Бичиг баримт '+(i+1);
+function openSheet(i){cur=i;$('stitle').textContent=docs[i].title||defT(i);$('fi').classList.remove('f');paintSheet();$('ov').classList.add('on');$('sheet').classList.add('on')}
+$('fi').onclick=()=>{
+  $('fi').classList.toggle('f');
+};
+$('ov').onclick=()=>{$('ov').classList.remove('on');$('sheet').classList.remove('on')};
+</script>
+</body></html>
